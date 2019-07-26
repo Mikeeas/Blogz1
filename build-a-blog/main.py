@@ -52,15 +52,12 @@ def new():
         return render_template('new_post.html',blog=new_post)
     return render_template('new.html')
 
-@app.route('/newpost')
-def linked():
-    blog_num = request.args.get('id')
 
-    if len(blog_num) == 0:
-        return render_template('new.html')
-    else:
-        new_post = Blog.query.get(blog_num)
-        return render_template('new_post.html', blog=new_post)
+@app.route('/newpost')
+def linked(): #Page to display selected post.
+    name = request.args.get('id')
+    new_post = Blog.query.get(name)
+    return render_template('new_post.html', blog=new_post, id=name)
         
     
     
