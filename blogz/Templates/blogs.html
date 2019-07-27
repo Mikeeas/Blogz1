@@ -17,7 +17,7 @@
             
             
             
-            <p><a href='/single_user?user={{user.id}}' name="author" value={{user.id}}>Written By:{{user.username}}</a></p>
+            <p><a href="/single_user?user={{post.owner.id}}">Written by:{{post.owner.username}}</a></p>
             
 
             
@@ -33,7 +33,7 @@
         
         
 
-    {% endif %}
+        {% endif %}
 
 
 

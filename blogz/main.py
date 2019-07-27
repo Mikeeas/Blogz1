@@ -52,7 +52,7 @@ def login(): #Page to login to current account
             session['username'] = username
             flash("Logged in")
             return redirect('/new') 
-        if user and not user.password == pass_word:
+        if user and not user.password == password:
             flash('Password is incorrect')
             return redirect('/login')
         if not user:
@@ -120,10 +120,11 @@ def index(): #Home page displaying all usernames.
 @app.route('/blog', methods=['POST', 'GET'])
 def blogs(): #Blog page to show all blogs posted by all users.
     blog = Blog.query.all()
-    for post in blog:
-        user = User.query.filter_by(id=post.owner_id).first()
+    
+    user = User.query.filter_by(id=Blog.owner_id).first()
+
         
-        return render_template('blogs.html', blog=blog, user=user)
+    return render_template('blogs.html', blog=blog, user=user)
     
 
 
@@ -147,11 +148,12 @@ def new(): #Page for new blog to be added.
 def linked(): #Page to display selected post.
     name = request.args.get('id')
     new_post = Blog.query.get(name)
-    return render_template('new_post.html', blog=new_post, id=name)
+    user = User.query.filter_by(id=Blog.owner_id).first()
+    return render_template('new_post.html', blog=new_post, id=name, user=user)
 
 @app.route('/single_user')
 def single_user():
-    name = request.args.get('owner')
+    name = request.args.get('user')
     new_posts = Blog.query.filter_by(owner_id=name).all()
     return render_template('single_user.html', blog=new_posts, id=name)
 
