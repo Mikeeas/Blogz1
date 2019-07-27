@@ -1,0 +1,39 @@
+<!doctype html>   
+<html>
+<head>
+    <title>{{title}}</title>
+    <style>
+        .error {
+            color: red
+        }
+    </style>
+</head>
+<body>
+    
+
+    <div>
+        <a href='/logout'>Logout</a>
+        <a href='/login'>Login</a>
+        <a href='/'>Home</a>
+    </div>
+
+    <h1>{{title}}</h1>
+    <form>
+    {% for user in user %}
+    <h2><a href='/single_user?user={{user.id}}' name="author" value={{user.id}}>{{user.username}}</a></h2>
+    </form>
+    {% endfor %}
+
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <ul>
+        {% for category,message in messages %}
+            <li class="{{category}}">{{message}}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endwith %}
+{% block content %}
+{% endblock %}
+</body>
+</html>
