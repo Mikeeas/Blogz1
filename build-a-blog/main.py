@@ -21,16 +21,6 @@ class Blog(db.Model):
         self.title = title
 
 
-class User(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True)
-    password = db.Column(db.String(120))
-    
-
-    def __init__(self, email, password):
-        self.email = email
-        self.password = password
 @app.route('/', methods=["POST", "GET"])
 def index():
     return redirect('/blog')
@@ -61,5 +51,5 @@ def linked(): #Page to display selected post.
         
     
     
-
-app.run()
+if __name__ == "__main__":
+    app.run()
